@@ -17,6 +17,7 @@ import createState from './vuex-crud/createState';
  * @property {Object} mutations The default mutations (will override generated mutations object).
  * @property {Object} getters The default getters (will override generated getters object).
  * @property {Object} client The client that should be used to do API requests.
+ * @property {Boolean} nuxtClient Flag to use @nuxt/axios wrapper client.
  * @property {Function} onFetchListStart Mutation method called after collection fetch start.
  * @property {Function} onFetchListSuccess Mutation method called after collection fetch success.
  * @property {Function} onFetchListError Mutation method called after collection fetch error.
@@ -51,6 +52,7 @@ const createCrud = ({
   mutations = {},
   getters = {},
   client = defaultClient,
+  nuxtClient = false,
   onFetchListStart = () => {},
   onFetchListSuccess = () => {},
   onFetchListError = () => {},
@@ -106,6 +108,7 @@ const createCrud = ({
       rootUrl,
       only,
       client,
+      nuxtClient,
       parseList,
       parseSingle,
       parseError

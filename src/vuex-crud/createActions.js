@@ -2,6 +2,7 @@ const createActions = ({
   actions,
   rootUrl,
   client,
+  nuxtClient,
   only,
   parseList,
   parseSingle,
@@ -44,8 +45,13 @@ const createActions = ({
        */
       fetchList({ commit }, { config, customUrl, customUrlFnArgs = [] } = {}) {
         commit('fetchListStart');
+        
+        if(nuxtClient && !this.$axios){
+          console.warn('@nuxt/axios is required to use this feature');
+          return
+        }
 
-        return client.get(urlGetter({ customUrl, customUrlFnArgs, type: FETCH_LIST }), config)
+        return (nuxtClient ? this.$axios : client).get(urlGetter({ customUrl, customUrlFnArgs, type: FETCH_LIST }), config)
           .then((res) => {
             const parsedResponse = parseList(res);
 
@@ -79,7 +85,12 @@ const createActions = ({
       } = {}) {
         commit('fetchSingleStart');
 
-        return client.get(urlGetter({
+        if(nuxtClient && !this.$axios){
+          console.warn('@nuxt/axios is required to use this feature');
+          return
+        }
+
+        return (nuxtClient ? this.$axios : client).get(urlGetter({
           customUrl,
           customUrlFnArgs,
           type: FETCH_SINGLE,
@@ -118,7 +129,12 @@ const createActions = ({
       } = {}) {
         commit('createStart');
 
-        return client.post(urlGetter({ customUrl, customUrlFnArgs, type: CREATE }), data, config)
+        if(nuxtClient && !this.$axios){
+          console.warn('@nuxt/axios is required to use this feature');
+          return
+        }
+
+        return (nuxtClient ? this.$axios : client).post(urlGetter({ customUrl, customUrlFnArgs, type: CREATE }), data, config)
           .then((res) => {
             const parsedResponse = parseSingle(res);
 
@@ -152,8 +168,13 @@ const createActions = ({
         customUrlFnArgs = []
       } = {}) {
         commit('updateStart');
+        
+        if(nuxtClient && !this.$axios){
+          console.warn('@nuxt/axios is required to use this feature');
+          return
+        }
 
-        return client.patch(urlGetter({
+        return (nuxtClient ? this.$axios : client).patch(urlGetter({
           customUrl,
           customUrlFnArgs,
           type: UPDATE,
@@ -193,7 +214,12 @@ const createActions = ({
       } = {}) {
         commit('replaceStart');
 
-        return client.put(urlGetter({
+        if(nuxtClient && !this.$axios){
+          console.warn('@nuxt/axios is required to use this feature');
+          return
+        }
+
+        return (nuxtClient ? this.$axios : client).put(urlGetter({
           customUrl,
           customUrlFnArgs,
           type: REPLACE,
@@ -231,8 +257,13 @@ const createActions = ({
         customUrlFnArgs = []
       } = {}) {
         commit('destroyStart');
-
-        return client.delete(urlGetter({
+        
+        if(nuxtClient && !this.$axios){
+          console.warn('@nuxt/axios is required to use this feature');
+          return
+        }
+        
+        return (nuxtClient ? this.$axios : client).delete(urlGetter({
           customUrl,
           customUrlFnArgs,
           type: DESTROY,

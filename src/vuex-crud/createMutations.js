@@ -27,6 +27,12 @@ const createMutations = ({
   onDestroyError
 }) => {
   const crudMutations = {};
+  
+  Object.assign(crudMutations,{
+      setSyncedState(state,flag){
+        state.synced = flag;
+      }
+  });
 
   if (only.includes('FETCH_LIST')) {
     Object.assign(crudMutations, {

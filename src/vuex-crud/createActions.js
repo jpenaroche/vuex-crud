@@ -50,7 +50,7 @@ const createActions = ({
           console.warn('@nuxt/axios is required to use this feature');
           return
         }
-
+        
         return (nuxtClient ? this.$axios : client).get(urlGetter({ customUrl, customUrlFnArgs, type: FETCH_LIST }), config)
           .then((res) => {
             const parsedResponse = parseList(res);
@@ -77,7 +77,7 @@ const createActions = ({
        *
        * Fetch single resource.
        */
-      fetchSingle({ commit }, {
+      fetchSingle({ commit, state }, {
         id,
         config,
         customUrl,
@@ -89,7 +89,7 @@ const createActions = ({
           console.warn('@nuxt/axios is required to use this feature');
           return
         }
-
+        
         return (nuxtClient ? this.$axios : client).get(urlGetter({
           customUrl,
           customUrlFnArgs,
@@ -101,7 +101,7 @@ const createActions = ({
 
             commit('fetchSingleSuccess', parsedResponse);
 
-            return res;
+            return parsedResponse;
           })
           .catch((err) => {
             const parsedError = parseError(err);

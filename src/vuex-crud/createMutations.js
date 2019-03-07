@@ -99,6 +99,7 @@ const createMutations = ({
         if (data) {
           const id = data[idAttribute].toString();
           Vue.set(state.entities, id, data);
+          Vue.set(state.list, id, id);
         }
         state.isCreating = false;
         state.createError = null;
